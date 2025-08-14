@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Automatic YouTube Redirect</title>
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+
+<script>
+  const GA_EVENT_NAME = "qr_scan";
+
+  // ===== GET PRODUCT CODE FROM URL PARAM =====
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get("code") || "default";
+
+  // ===== FETCH CONFIG JSON =====
+  fetch('config.json')
+    .then(response => response.json())
+    .then(data => {
+      // Select the correct YouTube link
+      let ytLink = data[code] || data["default"];
+
+      // Convert to mobile link for YouTube app prompt
+      const mobileLink = ytLink.replace("www.youtube.com", "m.youtube.com");
+
+      // GA tracking: custom parameter for product
+      if (typeof gtag === "function") {
+        gtag('event', GA_EVENT_NAME, {
+          event_category: 'QR Code',
+          event_label: ytLink,
+          product_code: code
+        });
+      }
+
+      // Redirect with short fallback delay
+      const startTime = Date.now();
+      window.location.href = mobileLink;
+
+      setTimeout(() => {
+        if (Date.now() - startTime < 1500) {
+          window.location.href = ytLink; // fallback to standard web
+        }
+      }, 300); // 0.3 second delay
+    })
+    .catch(err => {
+      console.error("Error loading config.json", err);
+      window.location.href = "https://www.youtube.com"; // fallback
+    });
+</script>
+</head>
+<body>
+<p>Redirecting to your video…</p>
+</body>
+</html>

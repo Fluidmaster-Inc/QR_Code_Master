@@ -4,9 +4,9 @@
 This repository hosts the redirect logic for product QR codes. All QR codes point to the same `index.html` file, with a `?product=SKU` parameter. The script automatically redirects users to the correct YouTube or product page based on the SKU.
 
 ## Example
-https://yourdomain.github.io/?product=(PRODUCT-SKU),
-Example: https://fluidmaster-inc.github.io/QR_Code_Master/?product=400A
-Link for the QR code: https://fluidmaster-inc.github.io/QR_Code_Master/?product=XXXX
+  - 'https://yourdomain.github.io/?product=(PRODUCT-SKU)'
+  - Example: 'https://fluidmaster-inc.github.io/QR_Code_Master/?product=400A'
+  - Link for the QR code: 'https://fluidmaster-inc.github.io/QR_Code_Master/?product=XXXX'
 
 ## Files
 - `index.html` – Main redirect page. Reads the `product` parameter, looks up the URL in `products.json`, and redirects the user. Also includes automatic YouTube conversion and fallback logic.

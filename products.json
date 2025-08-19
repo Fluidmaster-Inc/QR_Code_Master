@@ -3,3 +3,6 @@
   "SKU2": "LINK 2",
   "SKU3": "LINK 3"
 }
+<!-- https://yourdomain.github.io/?product=(PRODUCT SKU) 
+Example: https://yourdomain.github.io/?product=400A
+-->

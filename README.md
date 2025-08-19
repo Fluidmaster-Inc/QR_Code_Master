@@ -11,6 +11,6 @@ This repository hosts the redirect logic for product QR codes. All QR codes poin
   "400A": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
   "500A": "https://www.youtube.com/watch?v=abc123xyz",
   "600A": "https://www.fluidmaster.com/some-product-page"
-}
 https://yourdomain.github.io/?product=(PRODUCT SKU) 
 Example: https://yourdomain.github.io/?product=400A
+}

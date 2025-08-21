@@ -1,42 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title style="font-size:200%;Text-align:center;">Redirecting...</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QR Redirect</title>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
   <script>
-    async function redirectUser() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const productCode = urlParams.get("product");
-
-      try {
-        const response = await fetch("products.json");
-        const products = await response.json();
-
-        if (productCode && products[productCode]) {
-          let target = products[productCode];
-
-          // Auto-convert YouTube links
-          if (target.includes("youtube.com") || target.includes("youtu.be")) {
-            const videoId = target.split("v=")[1]?.split("&")[0] || target.split("/").pop();
-            target = "https://www.youtube.com/watch?v=" + videoId;
-          }
-
-          window.location.href = target;
-        } else {
-          // 🚨 Fallback if product not found
-          window.location.href = "https://www.fluidmaster.com/";
-        }
-      } catch (error) {
-        console.error("Error loading products.json", error);
-        // 🚨 Fallback in case JSON fails
-        window.location.href = "https://www.fluidmaster.com/";
-      }
-    }
-
-    redirectUser();
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX'); // replace with your GA4 Measurement ID
   </script>
 </head>
 <body>
-  <p style="font-size:200%;Text-align:center;">Redirecting you...</p>
+  <script>
+    // Grab product ID from URL
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+
+    if (!id) {
+      document.body.innerHTML = "<h2>No product ID provided.</h2>";
+    } else {
+      fetch("products.json")
+        .then((response) => response.json())
+        .then((products) => {
+          const product = products.find((p) => p.id === id);
+
+          if (product) {
+            // Fire GA Event
+            gtag("event", "qr_scan", {
+              event_category: "QR",
+              event_label: product.name
+            });
+
+            // Redirect after short delay (so GA has time to fire)
+            setTimeout(() => {
+              window.location.href = product.youtube;
+            }, 400);
+          } else {
+            document.body.innerHTML = "<h2>Invalid product ID.</h2>";
+          }
+        })
+        .catch((err) => {
+          console.error("Error loading products.json", err);
+          document.body.innerHTML = "<h2>Error loading product data.</h2>";
+        });
+    }
+  </script>
 </body>
 </html>

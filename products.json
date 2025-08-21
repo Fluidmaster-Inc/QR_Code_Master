@@ -1,5 +1,17 @@
-{
-  "510V-017": "https://www.youtube.com/watch?v=sUN6ja0jvJw",
-  "SKU2": "Youtube Link 2",
-  "SKU3": "Youtube Link 3"
-}
+[
+  {
+    "id": "001",
+    "name": "510V-017",
+    "youtube": "https://www.youtube.com/watch?v=sUN6ja0jvJw"
+  },
+  {
+    "id": "002",
+    "name": "SKU 2",
+    "youtube": "N/A"
+  },
+  {
+    "id": "003",
+    "name": "SKU 3",
+    "youtube": "N/A"
+  }
+]

@@ -6,12 +6,17 @@
   },
   {
     "id": "002",
-    "name": "SKU 2",
-    "youtube": "N/A"
+    "name": "K-400H-060",
+    "youtube": "https://www.youtube.com/watch?v=ta99sWz9zXQ"
   },
   {
     "id": "003",
-    "name": "SKU 3",
+    "name": "K-400H-61",
+    "youtube": "https://www.youtube.com/watch?v=AabLItDN-qk"
+  }
+  {
+    "id": "004",
+    "name": "SKU 4",
     "youtube": "N/A"
   }
 ]
